@@ -2,6 +2,14 @@
 SQL Practice and important notes
 =====================================
 
+[SQL Solutions 1-5](/SQL-1-5.md)
+[SQL Solutions 6-10](/SQL-6-8.md)
+[SQL Solutions 11-15](/SQL-9-11.md)
+[SQL Solutions 16-20](/SQL-12-15.md)
+[SQL Solutions 21-24](/SQL-16-19.md)
+[SQL Solutions 21-24](/SQL-20-24.md)
+=====================================
+
 ### 1. **Santa wants to know which gifts weigh more than 1 kg. Can you list them?**
 
 #### Table: `gifts`
