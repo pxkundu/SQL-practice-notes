@@ -400,3 +400,5 @@ SQL Practice and important notes
 | 3        | Mexico       | 200             |
 
 ---
+
+[All the SQL Solutions here](/SQL-1-5.md)
