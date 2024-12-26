@@ -252,4 +252,4 @@ LIMIT 3;
 
 ---
 
-[Go for next set of solutions](/SQL-2-10.md)
+[Go for next set of solutions](/SQL-6-8.md)

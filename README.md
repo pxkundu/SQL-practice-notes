@@ -9,7 +9,8 @@ SQL Practice and important notes
 - [SQL Solutions 16-20](/SQL-12-15.md)
 - [SQL Solutions 21-24](/SQL-16-19.md)
 - [SQL Solutions 21-24](/SQL-20-24.md)
-=====================================
+
+---
 
 ### 1. **Santa wants to know which gifts weigh more than 1 kg. Can you list them?**
 
