@@ -1,4 +1,6 @@
-**10 advanced SQL use cases** for WMS/MCS systems involving IoT sensors, HMI, and Ignition scripts, with more **complex queries** and **tricky logic**:
+# 10 Advanced SQL Use Cases for WMS/MCS Systems
+
+These use cases involve IoT sensors, HMI, and Ignition scripts, showcasing complex and advanced SQL logic for real-world scenarios in warehouse management and material control systems.
 
 ---
 
@@ -7,8 +9,19 @@
 Find storage bins that haven’t been used for storing or removing inventory in the last 30 days.
 
 #### Tables:
-- **`storage_bins`**
-- **`material_movements`**
+**`storage_bins`**
+| bin_id | bin_name |
+|--------|----------|
+| 1      | Bin A    |
+| 2      | Bin B    |
+| 3      | Bin C    |
+
+**`material_movements`**
+| movement_id | material_id | from_bin | to_bin | moved_at           |
+|-------------|-------------|----------|--------|--------------------|
+| 1           | 101         | 1        | 2      | 2024-01-01 12:00  |
+| 2           | 102         | 2        | 3      | 2023-12-01 09:00  |
+| 3           | 103         | 1        | 2      | 2024-01-02 14:00  |
 
 #### Query:
 ```sql
@@ -40,7 +53,10 @@ Monitor conveyor belt performance by calculating average load over 10-minute int
 #### Table: `conveyor_loads`
 | belt_id | timestamp           | load_kg |
 |---------|---------------------|---------|
-| B1      | 2024-01-01 08:00:00 | 200     |
+| 1       | 2024-01-01 08:00:00 | 200     |
+| 1       | 2024-01-01 08:05:00 | 250     |
+| 1       | 2024-01-01 08:15:00 | 150     |
+| 2       | 2024-01-01 08:20:00 | 300     |
 
 #### Query:
 ```sql
@@ -70,6 +86,9 @@ Flag sensors reporting values outside their typical range.
 #### Table: `sensor_readings`
 | sensor_id | timestamp           | temperature |
 |-----------|---------------------|-------------|
+| 1         | 2024-01-01 08:00:00 | 25          |
+| 1         | 2024-01-01 09:00:00 | 27          |
+| 1         | 2024-01-01 10:00:00 | 15 (anomaly)|
 
 #### Query:
 ```sql
@@ -112,6 +131,9 @@ Track the flow of materials between warehouse zones and compute total quantities
 #### Table: `zone_movements`
 | movement_id | from_zone | to_zone | material_id | quantity |
 |-------------|-----------|---------|-------------|----------|
+| 1           | Zone A    | Zone B  | 101         | 50       |
+| 2           | Zone B    | Zone C  | 102         | 70       |
+| 3           | Zone A    | Zone C  | 103         | 40       |
 
 #### Query:
 ```sql
@@ -142,6 +164,9 @@ Calculate downtime for each piece of equipment based on log gaps.
 #### Table: `equipment_logs`
 | equipment_id | timestamp           |
 |--------------|---------------------|
+| EQ1          | 2024-01-01 08:00:00|
+| EQ1          | 2024-01-01 09:00:00|
+| EQ1          | 2024-01-01 12:00:00|
 
 #### Query:
 ```sql
@@ -177,6 +202,10 @@ Find inventory items expiring within the next 7 days, grouped by their storage l
 
 #### Table: `inventory_items`
 | item_id | bin_id | expiry_date |
+|---------|--------|------------|
+| 1       | 1      | 2024-01-05 |
+| 2       | 2      | 2024-01-03 |
+| 3       | 3      | 2024-01-10 |
 
 #### Query:
 ```sql
@@ -200,6 +229,13 @@ GROUP BY
 ### 7. **Track the Fastest-Moving Materials**
 #### Scenario:
 Identify materials that had the highest number of movements in the last 30 days.
+
+#### Table: `material_movements`
+| movement_id | material_id | moved_at           |
+|-------------|-------------|--------------------|
+| 1           | 101         | 2024-01-01 12:00  |
+| 2           | 101         | 2024-01-02 14:00  |
+| 3           | 102         | 2024-01-01 13:00  |
 
 #### Query:
 ```sql
@@ -229,6 +265,10 @@ List bins where the total weight exceeds 90% of the bin's capacity.
 
 #### Table: `storage_bins`
 | bin_id | max_capacity | current_load |
+|--------|--------------|--------------|
+| A1     | 1000         | 950          |
+| A2     | 800          | 600          |
+| A3     | 500          | 450          |
 
 #### Query:
 ```sql
@@ -253,11 +293,17 @@ WHERE
 Group and count sensor failures by location and sensor type.
 
 #### Tables:
-1. **`sensor_logs`**
-   | log_id | sensor_id | error_code |
+**`sensor_logs`**
+| log_id | sensor_id | error_code |
+|--------|-----------|------------|
+| 1      | 1         | ERR01      |
+| 2      | 2         | ERR02      |
 
-2. **`sensors`**
-   | sensor_id | location | sensor_type |
+**`sensors`**
+| sensor_id | location      | sensor_type |
+|-----------|---------------|-------------|
+| 1         | Zone A        | Temperature |
+| 2         | Zone B        | Humidity    |
 
 #### Query:
 ```sql
@@ -286,6 +332,14 @@ ORDER BY
 #### Scenario:
 Determine how frequently materials are moving in and out of the warehouse.
 
+#### Table: `material_movements`
+| movement_id | material_id | movement_type | quantity |
+|-------------|-------------|---------------|----------|
+| 1           | 101         | IN            | 100      |
+| 2           | 101         | OUT           | 50       |
+| 3           | 102         | IN            | 200      |
+| 4           | 102         | OUT           | 150      |
+
 #### Query:
 ```sql
 SELECT 
@@ -304,4 +358,5 @@ GROUP BY
 
 ---
 
-These **advanced queries** demonstrate how SQL can solve tricky problems in WMS/MCS systems, integrating IoT and HMI data. 
+These examples demonstrate how SQL can solve tricky problems in WMS/MCS systems while integrating IoT and HMI data.
+Feel free to ask if you'd like me to elaborate on any of these scenarios or if you have.

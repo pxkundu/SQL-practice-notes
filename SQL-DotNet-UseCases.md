@@ -1,4 +1,6 @@
-**Real-world SQL example scenarios** tailored for learning SQL when used with **C#**, **.NET Framework**, and a **RESTful API backend**. Each scenario includes an explanation of how it could be implemented in a real-world project:
+# Real-World SQL Example Scenarios
+
+These scenarios are tailored for learning SQL when used with **C#**, **.NET Framework**, and a **RESTful API backend**. Each scenario includes an explanation of how it could be implemented in a real-world project.
 
 ---
 
@@ -40,6 +42,8 @@ Retrieve a paginated list of products for display on the frontend.
 |------------|-------------------|-------|------------|
 | 1          | Phone Case        | 9.99  | 2023-11-01 |
 | 2          | Wireless Charger  | 29.99 | 2023-11-10 |
+| 3          | Laptop Stand      | 39.99 | 2023-12-01 |
+| 4          | USB Hub           | 14.99 | 2023-12-05 |
 
 #### Query:
 ```sql
@@ -75,6 +79,8 @@ A user submits a new order, and you need to insert it into the database.
 2. **`order_items`**
    | item_id | order_id | product_id | quantity | price |
    |---------|----------|------------|----------|-------|
+   | 1       | 1        | 1          | 2        | 9.99  |
+   | 2       | 1        | 2          | 1        | 29.99 |
 
 #### Query:
 ```sql
@@ -101,6 +107,7 @@ When an order is placed, reduce the inventory for each product in the order.
 |------------|----------------|
 | 1          | 100            |
 | 2          | 50             |
+| 3          | 200            |
 
 #### Query:
 ```sql
@@ -120,8 +127,16 @@ WHERE product_id = @ProductId;
 Return a list of orders and their items for a specific user.
 
 #### Tables:
-- **`orders`**
-- **`order_items`**
+1. **`orders`**
+   | order_id | user_id | order_date  |
+   |----------|---------|-------------|
+   | 1        | 1       | 2024-01-15  |
+
+2. **`order_items`**
+   | item_id | order_id | product_id | quantity | price |
+   |---------|----------|------------|----------|-------|
+   | 1       | 1        | 1          | 2        | 9.99  |
+   | 2       | 1        | 2          | 1        | 29.99 |
 
 #### Query:
 ```sql
@@ -194,9 +209,11 @@ WHERE
 Log failed login attempts and fetch recent failures.
 
 #### Table: `login_attempts`
-| attempt_id | user_id | attempt_time | success |
-|------------|---------|--------------|---------|
-| 1          | 1       | 2024-01-01   | 0       |
+| attempt_id | user_id | attempt_time        | success |
+|------------|---------|---------------------|---------|
+| 1          | 1       | 2024-01-01 08:00:00| 0       |
+| 2          | 1       | 2024-01-01 08:05:00| 0       |
+| 3          | 2       | 2024-01-01 09:00:00| 1       |
 
 #### Query:
 ```sql
@@ -225,6 +242,7 @@ Mark a product as deleted without removing it from the database.
 | product_id | product_name | is_deleted |
 |------------|--------------|------------|
 | 1          | Phone Case   | 0          |
+| 2          | USB Hub      | 0          |
 
 #### Query:
 ```sql
@@ -242,6 +260,14 @@ WHERE product_id = @ProductId;
 ### 10. **Complex Filtering for Products**
 #### Scenario:
 Fetch products based on price range, category, and availability.
+
+#### Table: `products`
+| product_id | product_name    | price | category_id | is_deleted |
+|------------|-----------------|-------|-------------|------------|
+| 1          | Phone Case      | 9.99  | 1           | 0          |
+| 2          | Wireless Charger| 29.99 | 1           | 0          |
+| 3          | Laptop Stand    | 39.99 | 2           | 0          |
+| 4          | USB Hub         | 14.99 | 2           | 1          |
 
 #### Query:
 ```sql

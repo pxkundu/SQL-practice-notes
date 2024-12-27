@@ -1,4 +1,6 @@
-**10 use cases for SQL in a large data management system** designed for Warehouse Management Systems (WMS) or Material Control Systems (MCS), with data integration from **HMI**, **IoT sensors**, or tools like **Ignition scripts**:
+# 10 Use Cases for SQL in Large Data Management Systems
+
+These use cases are designed for Warehouse Management Systems (WMS) or Material Control Systems (MCS), integrating data from HMI, IoT sensors, or tools like Ignition scripts.
 
 ---
 
@@ -10,6 +12,9 @@ You need to fetch the latest readings from IoT sensors monitoring warehouse temp
 | reading_id | sensor_id | timestamp           | temperature | humidity |
 |------------|-----------|---------------------|-------------|----------|
 | 1          | 101       | 2024-01-01 08:00:00| 25.5        | 60       |
+| 2          | 102       | 2024-01-01 08:10:00| 22.0        | 55       |
+| 3          | 101       | 2024-01-01 08:15:00| 26.0        | 62       |
+| 4          | 103       | 2024-01-01 08:20:00| 24.0        | 58       |
 
 #### Query:
 ```sql
@@ -42,6 +47,9 @@ Log material movements between storage bins and fetch recent activity for report
 | movement_id | material_id | from_bin | to_bin | moved_at           | quantity |
 |-------------|-------------|----------|--------|--------------------|----------|
 | 1           | 501         | A1       | B2     | 2024-01-01 10:00  | 100      |
+| 2           | 502         | A3       | B1     | 2024-01-02 12:30  | 50       |
+| 3           | 503         | A2       | B3     | 2024-01-01 09:45  | 75       |
+| 4           | 501         | B2       | A1     | 2024-01-03 08:00  | 20       |
 
 #### Query:
 ```sql
@@ -71,6 +79,9 @@ Generate alerts for materials that fall below their minimum stock levels.
 | material_id | material_name | stock_quantity | min_stock_level |
 |-------------|---------------|----------------|-----------------|
 | 501         | Steel Rods    | 20             | 50              |
+| 502         | Aluminum Bars | 60             | 40              |
+| 503         | Copper Wires  | 15             | 20              |
+| 504         | Plastic Sheets| 80             | 70              |
 
 #### Query:
 ```sql
@@ -95,14 +106,18 @@ WHERE
 Determine the percentage utilization of each storage bin based on its capacity.
 
 #### Table: `storage_bins`
-| bin_id | total_capacity | current_occupancy |
-|--------|----------------|--------------------|
-| A1     | 1000           | 750                |
+| bin_id | bin_name | total_capacity | current_occupancy |
+|--------|----------|----------------|--------------------|
+| A1     | Bin A    | 1000           | 750                |
+| A2     | Bin B    | 800            | 600                |
+| A3     | Bin C    | 500            | 450                |
+| A4     | Bin D    | 1200           | 950                |
 
 #### Query:
 ```sql
 SELECT 
     bin_id,
+    bin_name,
     (current_occupancy * 100.0 / total_capacity) AS utilization_percentage
 FROM 
     storage_bins;
@@ -117,6 +132,16 @@ FROM
 ### 5. **Retrieve Sensor Data in Batches**
 #### Scenario:
 Process historical sensor data in chunks for analysis or reporting.
+
+#### Table: `sensor_readings`
+| reading_id | sensor_id | timestamp           | temperature | humidity |
+|------------|-----------|---------------------|-------------|----------|
+| 1          | 101       | 2024-01-01 08:00:00| 25.5        | 60       |
+| 2          | 102       | 2024-01-01 08:10:00| 22.0        | 55       |
+| 3          | 101       | 2024-01-01 08:15:00| 26.0        | 62       |
+| 4          | 103       | 2024-01-01 08:20:00| 24.0        | 58       |
+| 5          | 101       | 2024-01-01 08:25:00| 26.5        | 63       |
+| 6          | 102       | 2024-01-01 08:30:00| 23.0        | 56       |
 
 #### Query:
 ```sql
@@ -149,6 +174,8 @@ Detect equipment that hasn’t logged any activity in the last 24 hours.
 | equipment_id | last_active           |
 |--------------|-----------------------|
 | EQ1          | 2024-01-01 09:00:00  |
+| EQ2          | 2024-01-01 08:00:00  |
+| EQ3          | 2024-01-01 11:00:00  |
 
 #### Query:
 ```sql
@@ -175,6 +202,9 @@ Optimize pallet loads by calculating the remaining capacity for each pallet.
 | pallet_id | max_capacity | current_load |
 |-----------|--------------|--------------|
 | P1        | 1000         | 750          |
+| P2        | 800          | 600          |
+| P3        | 1200         | 1100         |
+| P4        | 500          | 300          |
 
 #### Query:
 ```sql
@@ -184,7 +214,7 @@ SELECT
 FROM 
     pallets
 WHERE 
-    remaining_capacity > 0;
+    (max_capacity - current_load) > 0;
 ```
 
 #### Explanation:
@@ -201,6 +231,8 @@ Identify equipment due for maintenance based on usage hours.
 | equipment_id | usage_hours | maintenance_threshold |
 |--------------|-------------|------------------------|
 | EQ1          | 500         | 1000                  |
+| EQ2          | 750         | 800                   |
+| EQ3          | 600         | 1200                  |
 
 #### Query:
 ```sql
@@ -228,6 +260,9 @@ Calculate the total throughput for each conveyor belt in the past 24 hours.
 | belt_id | material_id | timestamp           | quantity |
 |---------|-------------|---------------------|----------|
 | B1      | 501         | 2024-01-01 10:00:00| 200      |
+| B1      | 502         | 2024-01-01 12:00:00| 150      |
+| B2      | 501         | 2024-01-01 08:00:00| 300      |
+| B2      | 503         | 2024-01-01 15:00:00| 250      |
 
 #### Query:
 ```sql
@@ -256,6 +291,9 @@ Analyze sensor logs for recurring errors in a specific time frame.
 | log_id | sensor_id | error_code | timestamp           |
 |--------|-----------|------------|---------------------|
 | 1      | 101       | ERR01      | 2024-01-01 08:00:00|
+| 2      | 102       | ERR02      | 2024-01-01 08:30:00|
+| 3      | 103       | ERR01      | 2024-01-01 09:00:00|
+| 4      | 101       | ERR03      | 2024-01-01 10:00:00|
 
 #### Query:
 ```sql
@@ -278,4 +316,6 @@ ORDER BY
 
 ---
 
-These use cases demonstrate SQL’s capabilities in managing large datasets for WMS/MCS applications, integrating IoT and HMI data using Ignition-like scripting environments. 
+These use cases demonstrate SQL’s capabilities in managing large datasets for WMS/MCS applications, integrating IoT and HMI data using Ignition-like scripting environments.
+Want to collab?
+Feel free to ask me any questions or request more examples!

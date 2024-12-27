@@ -9,6 +9,10 @@ SQL Practice and important notes
 - [SQL Solutions 16-20](/SQL-12-15.md)
 - [SQL Solutions 21-24](/SQL-16-19.md)
 - [SQL Solutions 21-24](/SQL-20-24.md)
+- [SQL with .Net Use Cases](/SQL-DotNet-UseCases.md)
+- [SQL For Advanced & Complex Use Cases](/SQL-For-Advanced-usecases.md)
+- [SQL For Distributed & Micro-Service based System Design](/SQL-For-Complex-System.md)
+- [SQL For Real-Time Data Processing](/SQL-For-Realtime-Data.md)
 
 ---
 
