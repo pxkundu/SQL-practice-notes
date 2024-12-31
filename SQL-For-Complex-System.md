@@ -1,4 +1,5 @@
 # 10 Use Cases for SQL in Large Data Management Systems
+### By: [Partha Sarathi Kundu](https://www.linkedin.com/in/partha-sarathi-kundu/recent-activity/articles/)
 
 These use cases are designed for Warehouse Management Systems (WMS) or Material Control Systems (MCS), integrating data from HMI, IoT sensors, or tools like Ignition scripts.
 

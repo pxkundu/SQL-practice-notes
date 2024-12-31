@@ -1,4 +1,5 @@
 # 10 Advanced SQL Use Cases for WMS/MCS Systems
+### By: [Partha Sarathi Kundu](https://www.linkedin.com/in/partha-sarathi-kundu/recent-activity/articles/)
 
 These use cases involve IoT sensors, HMI, and Ignition scripts, showcasing complex and advanced SQL logic for real-world scenarios in warehouse management and material control systems.
 

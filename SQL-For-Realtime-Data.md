@@ -1,4 +1,5 @@
 # SQL For Real-Time Data Processing
+### By: [Partha Sarathi Kundu](https://www.linkedin.com/in/partha-sarathi-kundu/recent-activity/articles/)
 
 10 practical examples of using SQL for real-time data processing, applicable to streaming systems, real-time dashboards, and alerting mechanisms.
 

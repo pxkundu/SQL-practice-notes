@@ -1,4 +1,5 @@
 # Real-World SQL Example Scenarios
+### By: [Partha Sarathi Kundu](https://www.linkedin.com/in/partha-sarathi-kundu/recent-activity/articles/)
 
 These scenarios are tailored for learning SQL when used with **C#**, **.NET Framework**, and a **RESTful API backend**. Each scenario includes an explanation of how it could be implemented in a real-world project.
 

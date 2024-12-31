@@ -2,6 +2,8 @@
 SQL Practice and important notes
 =====================================
 
+### By: [Partha Sarathi Kundu](https://www.linkedin.com/in/partha-sarathi-kundu/recent-activity/articles/)
+
 ### SQL Solutions
 - [SQL Solutions 1-5](/SQL-1-5.md)
 - [SQL Solutions 6-10](/SQL-6-8.md)
